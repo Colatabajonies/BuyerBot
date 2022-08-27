@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+<types>
+        <members>Buyer_Bot_Template</members>
+        <name>Bot</name>
+    </types>
+
+    <types>
+        <members>Buyer_Bot_Routing_Flow</members>
+        <members>Buyer_Bot_Verify_Email_Code</members>
+        <members>Buyer_Bot_Send_Email_Verification</members>
+        <members>Buyer_Bot_Get_Account_from_Email_Domain</members>
+        <members>Buyer_Bot_Create_Lead</members>
+        <members>Sales_Bot_Route_to_Buyer_Bot</members>
+        <members>Buyer_Bot_Email_Notify</members>
+        <members>Buyer_Bot_Chatter_Notify</members>
+        <name>Flow</name>
+    </types>
+
+<!--    <types>
+        <members>*</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexComponent</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexTestSuite</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>StaticResource</name>
+    </types>
+    -->
+    <version>55.0</version>
+</Package>

@@ -101,10 +101,24 @@
                     </botNavigationLinks>
                     <type>Call</type>
                 </botNavigation>
-                <stepIdentifier>f8ceb67c-65e3-4878-8305-c80768d38fa1</stepIdentifier>
+                <stepIdentifier>b6aa5b2c-426b-4463-99d4-94c4c34eee9d</stepIdentifier>
                 <type>Navigation</type>
             </botSteps>
             <stepIdentifier>8af3bd0a-b81c-4b1a-9d3c-72f5559bbdae</stepIdentifier>
+            <type>Group</type>
+        </botSteps>
+        <botSteps>
+            <botSteps>
+                <botNavigation>
+                    <botNavigationLinks>
+                        <targetBotDialog>Assign_Cadence</targetBotDialog>
+                    </botNavigationLinks>
+                    <type>Call</type>
+                </botNavigation>
+                <stepIdentifier>426d9aa8-0a9a-4cd5-a953-7d1525290ae0</stepIdentifier>
+                <type>Navigation</type>
+            </botSteps>
+            <stepIdentifier>6a1cb050-91d4-4ace-9661-34b23d2a7c6a</stepIdentifier>
             <type>Group</type>
         </botSteps>
         <botSteps>
@@ -669,7 +683,6 @@ Unfortunately, there are no agents available at the moment</message>
         <showInFooterMenu>false</showInFooterMenu>
     </botDialogs>
     <botDialogs>
-        <botDialogGroup>Locate_Sales_Rep</botDialogGroup>
         <botSteps>
             <botMessages>
                 <message>Schedule Meeting Placeholder</message>
@@ -679,8 +692,14 @@ Unfortunately, there are no agents available at the moment</message>
             <type>Message</type>
         </botSteps>
         <botSteps>
+            <botNavigation>
+                <botNavigationLinks>
+                    <targetBotDialog>Anything_Else</targetBotDialog>
+                </botNavigationLinks>
+                <type>Redirect</type>
+            </botNavigation>
             <stepIdentifier>ce3524f9-968f-456d-86b6-abf5fb9ce2df</stepIdentifier>
-            <type>Wait</type>
+            <type>Navigation</type>
         </botSteps>
         <developerName>Schedule_Meeting</developerName>
         <label>Schedule Meeting</label>
@@ -1013,6 +1032,105 @@ Unfortunately, there are no agents available at the moment</message>
         <label>Route Chat</label>
         <showInFooterMenu>false</showInFooterMenu>
     </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <botInvocation>
+                <invocationActionName>Buyer_Bot_Assign_Cadence</invocationActionName>
+                <invocationActionType>flow</invocationActionType>
+                <invocationMappings>
+                    <parameterName>CadenceName</parameterName>
+                    <type>Input</type>
+                    <value>Sales Bot Cadence</value>
+                </invocationMappings>
+                <invocationMappings>
+                    <parameterName>CadenceSubject</parameterName>
+                    <type>Input</type>
+                    <value>Reach out to the related prospect. They requested a call back from the Sales Bot.</value>
+                </invocationMappings>
+                <invocationMappings>
+                    <parameterName>routableId</parameterName>
+                    <type>Input</type>
+                    <variableName>RoutableId</variableName>
+                    <variableType>ContextVariable</variableType>
+                </invocationMappings>
+            </botInvocation>
+            <stepIdentifier>649d2c91-6f15-4296-acb0-d66d6a187713</stepIdentifier>
+            <type>Invocation</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>732ff891-4478-4cc7-a2b0-573f77acddc2</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Assign_Cadence</developerName>
+        <label>Assign Cadence</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <botVariableOperation>
+                <askCollectIfSet>true</askCollectIfSet>
+                <botMessages>
+                    <message>Can I assist you with anything else?</message>
+                    <messageIdentifier>17085819-e0b7-a28c-b102-b58ba90672ff</messageIdentifier>
+                </botMessages>
+                <botQuickReplyOptions>
+                    <literalValue>Yes - Take me back to the Main Menu</literalValue>
+                    <quickReplyOptionIdentifier>e6775d82-3b78-f9fb-2f89-16aed65bdd0a</quickReplyOptionIdentifier>
+                </botQuickReplyOptions>
+                <botQuickReplyOptions>
+                    <literalValue>No - I&apos;m all set for now</literalValue>
+                    <quickReplyOptionIdentifier>2be70f66-708f-23cc-050d-e7ac07fb5ded</quickReplyOptionIdentifier>
+                </botQuickReplyOptions>
+                <botVariableOperands>
+                    <disableAutoFill>true</disableAutoFill>
+                    <sourceName>_Boolean</sourceName>
+                    <sourceType>StandardMlSlotClass</sourceType>
+                    <targetName>AnythingElse</targetName>
+                    <targetType>ConversationVariable</targetType>
+                </botVariableOperands>
+                <optionalCollect>false</optionalCollect>
+                <quickReplyType>Static</quickReplyType>
+                <quickReplyWidgetType>Menu</quickReplyWidgetType>
+                <type>Collect</type>
+                <variableOperationIdentifier>b6e8f62c-14ea-659e-fee2-b616c8a3c0d5</variableOperationIdentifier>
+            </botVariableOperation>
+            <stepIdentifier>ab37c404-1b02-4ed8-9d78-38c2dd73ea67</stepIdentifier>
+            <type>VariableOperation</type>
+        </botSteps>
+        <botSteps>
+            <botStepConditions>
+                <leftOperandName>AnythingElse</leftOperandName>
+                <leftOperandType>ConversationVariable</leftOperandType>
+                <operatorType>Equals</operatorType>
+                <rightOperandValue>true</rightOperandValue>
+            </botStepConditions>
+            <botSteps>
+                <botNavigation>
+                    <botNavigationLinks>
+                        <targetBotDialog>Main_Menu</targetBotDialog>
+                    </botNavigationLinks>
+                    <type>Redirect</type>
+                </botNavigation>
+                <stepIdentifier>386a8aea-dbe4-4909-aef5-e19c1d047065</stepIdentifier>
+                <type>Navigation</type>
+            </botSteps>
+            <stepIdentifier>a89539c3-af83-4203-9373-0a0b2acced37</stepIdentifier>
+            <type>Group</type>
+        </botSteps>
+        <botSteps>
+            <botNavigation>
+                <botNavigationLinks>
+                    <targetBotDialog>End_Chat</targetBotDialog>
+                </botNavigationLinks>
+                <type>Redirect</type>
+            </botNavigation>
+            <stepIdentifier>03e0b624-fe95-42bd-8def-5eaacdedcd6d</stepIdentifier>
+            <type>Navigation</type>
+        </botSteps>
+        <developerName>Anything_Else</developerName>
+        <label>Anything Else?</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
     <conversationSystemDialogs>
         <dialog>Rich_Content_Error_Handling</dialog>
         <type>ErrorHandling</type>
@@ -1035,6 +1153,11 @@ Unfortunately, there are no agents available at the moment</message>
         <dataType>Text</dataType>
         <developerName>AccountOwnerId</developerName>
         <label>AccountOwnerId</label>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <developerName>AnythingElse</developerName>
+        <label>Anything Else</label>
     </conversationVariables>
     <conversationVariables>
         <dataType>Text</dataType>

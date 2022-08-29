@@ -14,6 +14,7 @@
         <members>Sales_Bot_Route_to_Buyer_Bot</members>
         <members>Buyer_Bot_Email_Notify</members>
         <members>Buyer_Bot_Chatter_Notify</members>
+        <members>Buyer_Bot_Assign_Cadence</members>
         <name>Flow</name>
     </types>
 

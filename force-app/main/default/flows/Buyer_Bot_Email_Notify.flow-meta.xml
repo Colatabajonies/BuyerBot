@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Send_Email</name>
         <label>Send Email</label>
-        <locationX>314</locationX>
-        <locationY>974</locationY>
+        <locationX>182</locationX>
+        <locationY>1094</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -35,10 +35,32 @@
     </actionCalls>
     <apiVersion>55.0</apiVersion>
     <decisions>
+        <name>Is_Owner_a_User</name>
+        <label>Is Owner a User</label>
+        <locationX>314</locationX>
+        <locationY>854</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>isUser</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>OwnerId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>005</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_User</targetReference>
+            </connector>
+            <label>Is User</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Which_Record_Type</name>
         <label>Which Record Type</label>
         <locationX>314</locationX>
-        <locationY>398</locationY>
+        <locationY>278</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Is_Contact</name>
@@ -50,15 +72,8 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>Get_Messaging_User.OwnerId</leftValueReference>
-                <operator>StartsWith</operator>
-                <rightValue>
-                    <stringValue>005</stringValue>
-                </rightValue>
-            </conditions>
             <connector>
-                <targetReference>Lookup_Contact</targetReference>
+                <targetReference>Get_MU_Owner</targetReference>
             </connector>
             <label>Is Contact</label>
         </rules>
@@ -70,13 +85,6 @@
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Messaging_User.OwnerId</leftValueReference>
-                <operator>StartsWith</operator>
-                <rightValue>
-                    <stringValue>005</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -114,7 +122,7 @@
         <locationY>638</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_User</targetReference>
+            <targetReference>Is_Owner_a_User</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -134,10 +142,10 @@
         <name>Get_Lead</name>
         <label>Get Lead</label>
         <locationX>314</locationX>
-        <locationY>518</locationY>
+        <locationY>398</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_User</targetReference>
+            <targetReference>Is_Owner_a_User</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -156,6 +164,10 @@
             <assignToReference>Customer_Name</assignToReference>
             <field>Name</field>
         </outputAssignments>
+        <outputAssignments>
+            <assignToReference>OwnerId</assignToReference>
+            <field>OwnerId</field>
+        </outputAssignments>
     </recordLookups>
     <recordLookups>
         <name>Get_Messaging_Session</name>
@@ -164,7 +176,7 @@
         <locationY>158</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Messaging_User</targetReference>
+            <targetReference>Which_Record_Type</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -179,13 +191,13 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_Messaging_User</name>
-        <label>Get Messaging User</label>
-        <locationX>314</locationX>
-        <locationY>278</locationY>
+        <name>Get_MU_Owner</name>
+        <label>Get MU Owner</label>
+        <locationX>50</locationX>
+        <locationY>398</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Which_Record_Type</targetReference>
+            <targetReference>Lookup_Contact</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -195,15 +207,17 @@
                 <elementReference>Get_Messaging_Session.MessagingEndUserId</elementReference>
             </value>
         </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>MessagingEndUser</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <outputAssignments>
+            <assignToReference>OwnerId</assignToReference>
+            <field>OwnerId</field>
+        </outputAssignments>
     </recordLookups>
     <recordLookups>
         <name>Get_User</name>
         <label>Get User</label>
-        <locationX>314</locationX>
-        <locationY>854</locationY>
+        <locationX>182</locationX>
+        <locationY>974</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Send_Email</targetReference>
@@ -213,7 +227,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Messaging_User.OwnerId</elementReference>
+                <elementReference>OwnerId</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -300,6 +314,13 @@
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>OwnerId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>

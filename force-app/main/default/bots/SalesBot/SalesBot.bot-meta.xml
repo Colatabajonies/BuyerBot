@@ -527,7 +527,7 @@
         </mlIntents>
         <name>SalesBot</name>
     </botMlDomain>
-    <botUser>cgilmore@tapatio-bot.dev</botUser>
+    <botUser>tton@tapatio-bot.dev</botUser>
     <contextVariables>
         <dataType>Text</dataType>
         <developerName>ChatKey</developerName>

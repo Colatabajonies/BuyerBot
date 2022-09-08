@@ -6,17 +6,18 @@
     </types>
 
     <types>
-        <members>RouteMessagingSessionstoSalesBot</members>
-        <members>SalesRoutingFlow</members>
-        <members>VerifyEmailCode</members>
-        <members>SendEmailVerification</members>
-        <members>GetAccountfromEmailDomain</members>
-        <members>setup_sales_bot__CreateLead</members> <!-- Using without any changes -->
-        <members>UpdateSessionwithContactandLead</members>
+        <members>SalesBot_RoutingtoOmniFlow</members>
+        <members>SalesBotGetSalesRep</members>
         <members>EmailNotify</members>
         <members>ChatterNotify</members>
-        <members>AssignCadence</members> <!-- Rewrite of setup_sales_bot__AssignToCadence -->
-        <members>ChatterNotify</members>
+        <members>SendEmailVerification</members>
+        <members>AssignCadence</members>
+        <members>VerifyEmailCode</members>
+        <members>GetAccountfromEmailDomain</members>
+        <members>GetOpportunitiesviaOpportunityContactRole</members>
+        <members>LookupAccountOpportunity</members> 
+
+        <members>RouteMessagingSessionstoSalesBot</members>
         <name>Flow</name>
     </types>
 
